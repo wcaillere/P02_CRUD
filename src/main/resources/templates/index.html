@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Je veux utiliser le fragment head -->
+<head th:replace="~{fragments/head.html :: head}"></head>
+
+<body>
+<div th:replace="~{fragments/navbar.html :: nav}"></div>
+
+<div id="content">Contenu de la page</div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
