@@ -28,7 +28,6 @@ public class ServicesDalTeacher implements IServicesDalTeacher {
         List<Teacher> teachers = teacherRepository.findAll();
 
         teachers.forEach(t -> dtoTeachers.add(converter.TeacherToDto(t)));
-        System.out.println(teachers);
 
         return dtoTeachers;
     }

@@ -1,14 +1,18 @@
 <form class="m-auto my-4 w-50 " th:fragment="form" xmlns:th="http://www.thymeleaf.org">
     <h1 class="mb-4">Ajouter un formateur</h1>
     <div class="mb-3">
-        <label class="form-label" for="exampleInputEmail1">Email address</label>
-        <input aria-describedby="emailHelp" class="form-control" id="exampleInputEmail1" type="email">
+        <label class="form-label" for="lastname">Nom</label>
+        <input class="form-control" id="lastname" type="text">
     </div>
     <div class="mb-3">
-        <label class="form-label" for="exampleInputPassword1">Password</label>
-        <input class="form-control" id="exampleInputPassword1" type="password">
+        <label class="form-label" for="firstname">Prénom</label>
+        <input class="form-control" id="firstname" type="text">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="salary">Salaire</label>
+        <input class="form-control" id="salary" type="number">
     </div>
     <div class="text-center">
-        <button class="btn btn-primary w-50 mt-3" type="submit">Valider</button>
+        <button class="btn btn-primary w-25 mt-3" type="submit">Valider</button>
     </div>
 </form>

@@ -1,6 +1,6 @@
 <div class="m-4" th:fragment="list" xmlns:th="http://www.thymeleaf.org">
     <h1 style="text-align: center">Liste des formateurs</h1>
-    <button class="btn btn-primary">Ajouter un formateur</button>
+    <button class="btn btn-primary my-3" th:onclick="loadAddTeacher()">Ajouter un formateur</button>
 
     <th:block th:if="${teachersList.size()} == 0">
         <div class="text-center text-info">
@@ -9,30 +9,39 @@
     </th:block>
 
     <th:block th:if="${teachersList.size()} > 0">
-        <table class="table table-border mt-3">
+        <table class="table table-dark table-striped table-bordered table-hover w-75 m-auto mt-3">
             <thead>
             <tr>
-                <th>Photo</th>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Salaire</th>
+                <th class="text-center">Photo</th>
+                <th class="text-center">Id</th>
+                <th class="text-center">Nom</th>
+                <th class="text-center">Prénom</th>
+                <th class="text-center">Salaire</th>
                 <th class="text-center">Opérations</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="teacher: ${teachersList}">
-                <td class="align-middle">
+                <td class="align-middle text-center">
                     <img style="max-height: 60px"
                          th:onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
                          th:src="${teacher.getUrlPhoto()}">
                 </td>
-                <td class="align-middle" th:text="${teacher.getId()}"></td>
-                <td class="align-middle" th:text="${teacher.getLastname()}"></td>
-                <td class="align-middle" th:text="${teacher.getFirstname()}"></td>
-                <td class="align-middle"
+                <td class="align-middle text-center" th:text="${teacher.getId()}"></td>
+                <td class="align-middle text-center" th:text="${teacher.getLastname()}"></td>
+                <td class="align-middle text-center" th:text="${teacher.getFirstname()}"></td>
+                <td class="align-middle text-center"
                     th:text="${#numbers.formatDecimal(teacher.getSalary(), 0, (T(java.lang.Math).round(teacher.getSalary()) == teacher.getSalary() ? 0 : 2))}"></td>
-                <td class="align-middle">test</td>
+                <td class="align-middle text-center">
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Détails</a>
+                            <a class="dropdown-item" href="#">Modifier</a>
+                            <a class="dropdown-item" href="#">Supprimer</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
