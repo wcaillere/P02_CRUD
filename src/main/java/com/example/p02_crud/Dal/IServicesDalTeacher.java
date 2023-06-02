@@ -7,4 +7,10 @@ import java.util.List;
 public interface IServicesDalTeacher {
 
     List<DTOTeacher> TeachersList();
+
+    DTOTeacher addTeacher(DTOTeacher dtoTeacher);
+
+    DTOTeacher getDetails(String id);
+
+    void deleteTeacher(String id);
 }

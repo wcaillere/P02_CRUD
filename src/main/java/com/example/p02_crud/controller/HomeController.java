@@ -2,14 +2,16 @@ package com.example.p02_crud.controller;
 
 import com.example.p02_crud.Dal.IServicesDalTeacher;
 import com.example.p02_crud.Dto.DTOTeacher;
+import com.example.p02_crud.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -29,7 +31,8 @@ public class HomeController {
 
     @GetMapping("/addTeacher")
     public String AddTeacher(Model model) {
-        model.addAttribute("teacher", new DTOTeacher());
+        DTOTeacher dtoteacher = new DTOTeacher();
+        model.addAttribute("teacher", dtoteacher);
 
         return "fragments/addTeacher";
     }
@@ -43,9 +46,49 @@ public class HomeController {
         return "fragments/listTeacher";
     }
 
-    @PostMapping("/saveTeacher")
-    public String SaveTeacher(@RequestParam Object test) {
-        System.out.println(test);
+    @PostMapping("/addTeacher")
+    public String SaveTeacher(@ModelAttribute("teacher") DTOTeacher testdto, @RequestParam("test") String teacher) {
+        DTOTeacher dtoTeacher = new DTOTeacher();
+        System.out.println(testdto);
+
+        List<Map<String, String>> params = Arrays.stream(teacher.split("&")).map(i -> Map.of(i.split("=")[0], i.split("=")[1])).toList();
+        System.out.println(params);
+
+        for (Map<String, String> map : params) {
+            Map.Entry<String, String> entry = map.entrySet().stream().findFirst().orElse(null);
+            switch (entry.getKey()) {
+                case "lastname":
+                    dtoTeacher.setLastname(entry.getValue());
+                    break;
+                case "firstname":
+                    dtoTeacher.setFirstname(entry.getValue());
+                    break;
+                case "salary":
+                    dtoTeacher.setSalary(Double.parseDouble(entry.getValue()));
+                    break;
+                case "urlPhoto":
+                    dtoTeacher.setUrlPhoto(entry.getValue().replaceAll("%3A", ":").replaceAll("%2F", "/"));
+                    break;
+            }
+        }
+
+        System.out.println(dtoTeacher);
+        st.addTeacher(dtoTeacher);
+
         return "fragments/saveConfirm";
+    }
+
+    @GetMapping("/teacherDetails/{id}")
+    public String TeacherDetails(@PathVariable("id") String id, Model model) {
+
+        model.addAttribute("teacher", st.getDetails(id));
+        return "fragments/teacherDetails";
+    }
+
+    @GetMapping("/deleteTeacher/{id}")
+    public String DeleteTeacher(@PathVariable("id") String id) {
+        st.deleteTeacher(id);
+
+        return "redirect:/listTeacher";
     }
 }

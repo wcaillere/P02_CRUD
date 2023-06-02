@@ -1,0 +1,25 @@
+<div class="m-4" th:fragment="details" xmlns:th="http://www.thymeleaf.org">
+    <button class="btn btn-primary mb-3" th:onclick="loadList()">Retour</button>
+    <h1 th:text="'Détails du formateur ' + ${teacher.getId() + ' :'}"></h1>
+    <div class="mt-3">
+        <img style="max-height: 100px"
+             th:onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+             th:src="${teacher.getUrlPhoto()}">
+
+    </div>
+    <div class="mt-3">
+        <span>Nom : </span>
+        <span th:text="${teacher.getLastname()}"></span>
+    </div>
+    <div class="mt-3">
+        <span>Prenom : </span>
+        <span th:text="${teacher.getFirstname()}"></span>
+    </div>
+    <div class="mt-3">
+        <span>Salaire : </span>
+        <span th:text="${teacher.getSalary() + '€'}"></span>
+    </div>
+    <div class="mt-4">
+        <button class="btn btn-danger" th:onclick="deleteTeacher([[${teacher.getId()}]])">Supprimer</button>
+    </div>
+</div>  

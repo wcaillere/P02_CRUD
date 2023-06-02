@@ -1,9 +1,9 @@
-<form class="m-auto my-4 w-50 " id="idForm" th:fragment="form" th:object="${teacher}"
-      xmlns:th="http://www.thymeleaf.org">
+<form class="m-auto my-4 w-50 " id="idForm" method="post" th:fragment="form"
+      th:object="${teacher}" xmlns:th="http://www.thymeleaf.org">
     <h1 class="mb-4">Ajouter un formateur</h1>
     <div class="mb-3">
         <label class="form-label" for="lastname">Nom :</label>
-        <input class="form-control" id="lastname" name="lastname" placeholder="Nom du formateur (40 caractères maximum)"
+        <input class="form-control" id="lastname" placeholder="Nom du formateur (40 caractères maximum)"
                th:field="*{lastname}"
                type="text">
         <span class="text-danger" id="idErrorLastname" th:style="${'visibility: hidden;'}"
@@ -11,8 +11,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="firstname">Prénom :</label>
-        <input class="form-control" id="firstname" name="firstname"
-               placeholder="Prénom du formateur (40 caractères maximum)"
+        <input class="form-control" id="firstname" placeholder="Prénom du formateur (40 caractères maximum)"
                th:field="*{firstname}"
                type="text">
         <span class="text-danger" id="idErrorFirstname" th:style="${'visibility: hidden;'}"
@@ -20,16 +19,16 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="salary">Salaire :</label>
-        <input class="form-control" id="salary" name="salary"
+        <input class="form-control" id="salary"
                placeholder="Salaire du formateur"
                th:field="*{salary}"
-               type="text">
+               th:onkeypress="return validerNumerique(event, this)" type="text">
         <span class="text-danger" id="idErrorSalary" th:style="${'visibility: hidden;'}"
               th:text="${'Veuillez saisir un salaire valide'}"></span>
     </div>
     <div class="mb-3">
         <label class="form-label" for="urlPhoto">Url Photo :</label>
-        <input class="form-control" id="urlPhoto" name="urlPhoto"
+        <input class="form-control" id="urlPhoto"
                placeholder="Url de la photo du formateur (255 caractères au maximum)"
                th:field="*{urlPhoto}"
                type="text">
@@ -49,12 +48,15 @@
     form.on("submit", function (e) {
         e.preventDefault();
 
-        form.attr({method: "POST", action: "javascript:loadSaveConfirmation()"});
-        e.currentTarget.submit();
+        // Validation des données
+        if (validateTeacher()) {
+            form.attr({method: "POST", action: "javascript:loadSaveConfirmation()"});
+            e.currentTarget.submit();
+        }
     })
 
     function loadSaveConfirmation() {
-        $("#content").load("saveTeacher", {
+        $("#content").load("addTeacher", {
             test: form.serialize()
         });
     }
@@ -88,5 +90,5 @@
 
      */
 
-
 </script>
+<script th:src="@{/js/validation.js}"></script>

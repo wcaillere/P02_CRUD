@@ -11,3 +11,13 @@ function loadAddTeacher() {
 function loadList() {
     $("#content").load("listTeacher");
 }
+
+function loadDetails(idTeacher) {
+    $("#content").load("teacherDetails/" + idTeacher);
+}
+
+function deleteTeacher(idTeacher) {
+    if (confirm("Voulez-vous vraiment supprimer ce formateur ?")) {
+        $("#content").load("deleteTeacher/" + idTeacher);
+    }
+}

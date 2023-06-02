@@ -36,9 +36,17 @@
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Détails</a>
-                            <a class="dropdown-item" href="#">Modifier</a>
-                            <a class="dropdown-item" href="#">Supprimer</a>
+                            <a class="dropdown-item" style="background-color: green;"
+                               th:onclick="loadDetails([[${teacher.getId()}]])"
+                               th:onmouseout="this.style='background-color: green'"
+                               th:onmouseover="this.style='background-color: lightgreen'">Détails</a>
+                            <a class="dropdown-item" href="#" style="background-color: blue;"
+                               th:onmouseout="this.style='background-color: blue'"
+                               th:onmouseover="this.style='background-color: lightblue'">Modifier</a>
+                            <a class="dropdown-item" href="#" style="background-color: red;"
+                               th:onclick="deleteTeacher([[${teacher.getId()}]])"
+                               th:onmouseout="this.style='background-color: red'"
+                               th:onmouseover="this.style='background-color: lightcoral'">Supprimer</a>
                         </div>
                     </div>
                 </td>
@@ -47,3 +55,5 @@
         </table>
     </th:block>
 </div>
+<script th:src="@{/js/main.js}"></script>
+
