@@ -20,6 +20,9 @@
         <span th:text="${teacher.getSalary() + '€'}"></span>
     </div>
     <div class="mt-4">
+        <button class="btn btn-success" th:onclick="modifyTeacher([[${teacher.getId()}]])">Modifier</button>
+    </div>
+    <div class="mt-4">
         <button class="btn btn-danger" th:onclick="deleteTeacher([[${teacher.getId()}]])">Supprimer</button>
     </div>
-</div>  
+</div>

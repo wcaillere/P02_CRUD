@@ -31,7 +31,7 @@
                 <td class="align-middle text-center" th:text="${teacher.getLastname()}"></td>
                 <td class="align-middle text-center" th:text="${teacher.getFirstname()}"></td>
                 <td class="align-middle text-center"
-                    th:text="${#numbers.formatDecimal(teacher.getSalary(), 0, (T(java.lang.Math).round(teacher.getSalary()) == teacher.getSalary() ? 0 : 2))}"></td>
+                    th:text="${#numbers.formatDecimal(teacher.getSalary(), 0, (T(java.lang.Math).round(teacher.getSalary()) == teacher.getSalary() ? 0 : 2))} + '€'"></td>
                 <td class="align-middle text-center">
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
@@ -41,6 +41,7 @@
                                th:onmouseout="this.style='background-color: green'"
                                th:onmouseover="this.style='background-color: lightgreen'">Détails</a>
                             <a class="dropdown-item" href="#" style="background-color: blue;"
+                               th:onclick="modifyTeacher([[${teacher.getId()}]])"
                                th:onmouseout="this.style='background-color: blue'"
                                th:onmouseover="this.style='background-color: lightblue'">Modifier</a>
                             <a class="dropdown-item" href="#" style="background-color: red;"

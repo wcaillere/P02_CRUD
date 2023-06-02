@@ -69,4 +69,14 @@ public class ServicesDalTeacher implements IServicesDalTeacher {
             System.out.println("pas de teacher à supprimé avec cet id");
         }
     }
+
+    @Override
+    public DTOTeacher modifyTeacher(DTOTeacher dtoTeacher) {
+        Teacher teacher = converter.DtoToTeacher(dtoTeacher);
+
+        // Sauvegarde de l'entité
+        teacherRepository.save(teacher);
+
+        return dtoTeacher;
+    }
 }

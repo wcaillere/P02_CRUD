@@ -21,3 +21,7 @@ function deleteTeacher(idTeacher) {
         $("#content").load("deleteTeacher/" + idTeacher);
     }
 }
+
+function modifyTeacher(idTeacher) {
+    $("#content").load("modifyTeacher/" + idTeacher);
+}

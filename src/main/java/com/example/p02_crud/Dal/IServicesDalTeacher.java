@@ -13,4 +13,6 @@ public interface IServicesDalTeacher {
     DTOTeacher getDetails(String id);
 
     void deleteTeacher(String id);
+
+    DTOTeacher modifyTeacher(DTOTeacher dtoTeacher);
 }

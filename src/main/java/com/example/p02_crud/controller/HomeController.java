@@ -8,6 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -90,5 +98,21 @@ public class HomeController {
         st.deleteTeacher(id);
 
         return "redirect:/listTeacher";
+    }
+
+    @GetMapping("/modifyTeacher/{id}")
+    public String ModifiyTeacher(@PathVariable("id") String id, Model model) {
+
+        model.addAttribute("teacher", st.getDetails(id));
+        return "fragments/modifyTeacher";
+    }
+
+    @PostMapping("/modifyTeacher")
+    public String SaveModifiedTeacher(@ModelAttribute("teacher") DTOTeacher teacher, Model model) {
+
+        System.out.println(teacher);
+        st.modifyTeacher(teacher);
+
+        return "redirect:/";
     }
 }

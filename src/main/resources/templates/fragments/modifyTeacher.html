@@ -1,0 +1,64 @@
+<form class="m-auto my-4 w-50 " id="idForm" method="POST" th:action="@{/modifyTeacher}" th:fragment="form"
+      th:object="${teacher}"
+      xmlns:th="http://www.thymeleaf.org">
+    <h1 class="mb-4">Modifier un formateur</h1>
+    <div class="mb-3">
+        <input th:field="*{id}" th:value="${teacher.getId()}" type="hidden">
+        <label class="form-label" for="lastname">Nom :</label>
+        <input class="form-control" id="lastname" placeholder="Nom du formateur (40 caractères maximum)"
+               th:field="*{lastname}"
+               type="text">
+        <span class="text-danger" id="idErrorLastname" th:style="${'visibility: hidden;'}"
+              th:text="${'Le nom du formateur doit être saisi (40 caractères maximum)'}"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="firstname">Prénom :</label>
+        <input class="form-control" id="firstname" placeholder="Prénom du formateur (40 caractères maximum)"
+               th:field="*{firstname}"
+               type="text">
+        <span class="text-danger" id="idErrorFirstname" th:style="${'visibility: hidden;'}"
+              th:text="${'Le prénom du formateur doit être saisi (40 caractères maximum)'}"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="salary">Salaire :</label>
+        <input class="form-control" id="salary"
+               placeholder="Salaire du formateur"
+               th:field="*{salary}"
+               th:onkeypress="return validerNumerique(event, this)" type="text">
+        <span class="text-danger" id="idErrorSalary" th:style="${'visibility: hidden;'}"
+              th:text="${'Veuillez saisir un salaire valide'}"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="urlPhoto">Url Photo :</label>
+        <input class="form-control" id="urlPhoto"
+               placeholder="Url de la photo du formateur (255 caractères au maximum)"
+               th:field="*{urlPhoto}"
+               type="text">
+        <span class="text-danger" id="idErrorUrlPhoto" th:style="${'visibility: hidden;'}"
+              th:text="${'Veuillez saisir une url de photo valide (255 caractères au maximum)'}"></span>
+    </div>
+    <div class="text-center mt-4">
+        <button class="btn btn-primary w-25" type="submit">Valider</button>
+    </div>
+</form>
+
+<script>
+    var form = $('#idForm');
+    // Je veux intervenir sur la chaine d'envoi des données pour pouvoir tester la validité des données
+
+    form.on("submit", function (e) {
+        e.preventDefault();
+
+        // Validation des données
+        if (validateTeacher()) {
+            e.currentTarget.submit();
+        }
+    })
+
+    function loadSaveConfirmation() {
+        $("#content").load("addTeacher", {
+            test: form.serialize()
+        });
+    }
+</script>
+<script th:src="@{/js/validation.js}"></script>
